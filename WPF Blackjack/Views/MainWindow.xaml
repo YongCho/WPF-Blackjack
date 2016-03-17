@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Blackjack"
         xmlns:viewModels="clr-namespace:WPF_Blackjack.ViewModels"
+        xmlns:models="clr-namespace:WPF_Blackjack.Models"
+        xmlns:views="clr-namespace:WPF_Blackjack.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Window.Background>
@@ -44,6 +46,20 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <views:CardToBrushConverter x:Key="CardToBrushConverter" />
+
+        <DataTemplate DataType="{x:Type models:Card}">
+            <Border Width="80" Height="120" BorderThickness="1" CornerRadius="6">
+                <Border.Background>
+                    <MultiBinding Converter="{StaticResource CardToBrushConverter}">
+                        <Binding Path="SuitString" />
+                        <Binding Path="FaceLetter" />
+                        <Binding Path="IsFaceDown" />
+                    </MultiBinding>
+                </Border.Background>
+            </Border>
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -56,6 +72,18 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <ContentControl Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ItemsControl ItemsSource="{Binding PlayerCards}" Background="Transparent" BorderThickness="0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ContentControl>
+        
+
+        <!-- Control buttons -->
         <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center">
             <Button Style="{StaticResource ButtonStyle}" x:Name="DealButtonButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding DealCommand}">Deal</Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="HitButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding HitCommand}">Hit</Button>

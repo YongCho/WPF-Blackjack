@@ -121,6 +121,13 @@ namespace WPF_Blackjack.Models
             private set { SetProperty(ref this.faceString, value); }
         }
 
+        private bool isFaceDown = false;
+        public bool IsFaceDown
+        {
+            get { return this.isFaceDown; }
+            set { SetProperty(ref this.isFaceDown, value); }
+        }
+
         public Card(Suits suit, int faceNumber)
         {
             Suit = suit;
