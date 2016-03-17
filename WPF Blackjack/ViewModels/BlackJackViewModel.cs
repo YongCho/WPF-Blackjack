@@ -41,9 +41,12 @@ namespace WPF_Blackjack.ViewModels
         public ICommand StandCommand { get; set; }
         public ICommand SplitCommand { get; set; }
 
+        private Deck deck;
+
         public BlackJackViewModel()
         {
-            Deck deck = new Deck(3);
+            int numDecks = 3;
+            this.deck = new Deck(numDecks);
 
             PlayerCards = new ObservableCollection<Card>();
             DealerCards = new ObservableCollection<Card>();
@@ -75,7 +78,22 @@ namespace WPF_Blackjack.ViewModels
 
         private void DoDeal()
         {
-            Trace.WriteLine("Deal");
+            if (this.deck.CardCount < 20)
+            {
+                this.deck.Reset();
+                this.deck.Shuffle();
+            }
+
+            PlayerCards.Clear();
+            DealerCards.Clear();
+
+            PlayerCards.Add(this.deck.DealCard());
+            Card c = this.deck.DealCard();
+            c.IsFaceDown = true;
+            DealerCards.Add(c);
+
+            PlayerCards.Add(this.deck.DealCard());
+            DealerCards.Add(this.deck.DealCard());
         }
 
         private void DoHit()
