@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WPF_Blackjack.ViewModels;
 
 namespace WPF_Blackjack
 {
@@ -7,9 +8,13 @@ namespace WPF_Blackjack
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new MainWindowViewModel();
+            DataContext = viewModel;
         }
     }
 }
