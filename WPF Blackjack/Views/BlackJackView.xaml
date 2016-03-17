@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="WPF_Blackjack.Views.BlackJackView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:WPF_Blackjack.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <viewModels:BlackJackViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Background>
+        <ImageBrush AlignmentY="Top" ImageSource="/Resources/Images/background.png" Stretch="None" TileMode="FlipY" Viewport="0,0,80,80" ViewportUnits="Absolute" />
+    </UserControl.Background>
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Resources/BlackJackResourceDictionary.xaml" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Player hand value -->
+        <ContentControl Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="{Binding PlayerHandValue}" FontSize="50" Foreground="White" FontFamily="Verdana" FontWeight="Bold">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="3" Color="Black" />
+                </TextBlock.Effect>
+            </TextBlock>
+        </ContentControl>
+
+        <!-- Dealer hand value -->
+        <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="{Binding DealerHandValue}" FontSize="50" Foreground="White" FontFamily="Verdana" FontWeight="Bold">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="3" Color="Black" />
+                </TextBlock.Effect>
+            </TextBlock>
+        </ContentControl>
+
+        <!-- Player cards -->
+        <ItemsControl Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding PlayerCards}" Background="Transparent" BorderThickness="0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        <!-- Dealer cards -->
+        <ItemsControl Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding DealerCards}" Background="Transparent" BorderThickness="0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        <!-- Control buttons -->
+        <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="DealButtonButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding DealCommand}">Deal</Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="HitButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding HitCommand}">Hit</Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="StandButton" Margin="5, 0, 5, 20" Height="50" Width="50" Command="{Binding StandCommand}">Stand</Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="SplitButton" Margin="5, 0, 5, 20" Visibility="Collapsed" Height="30" Width="50" Command="{Binding SplitCommand}">Split</Button>
+        </WrapPanel>
+    </Grid>
+</UserControl>

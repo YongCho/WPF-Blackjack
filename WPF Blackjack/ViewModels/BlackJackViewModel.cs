@@ -10,7 +10,7 @@ using WPF_Blackjack.Models;
 
 namespace WPF_Blackjack.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class BlackJackViewModel : BindableBase
     {
         public ObservableCollection<Card> PlayerCards { get; set; }
         public ObservableCollection<Card> DealerCards { get; set; }
@@ -34,7 +34,7 @@ namespace WPF_Blackjack.ViewModels
         public ICommand StandCommand { get; set; }
         public ICommand SplitCommand { get; set; }
 
-        public MainWindowViewModel()
+        public BlackJackViewModel()
         {
             Deck deck = new Deck(3);
 
