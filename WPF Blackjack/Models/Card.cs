@@ -5,7 +5,37 @@ namespace WPF_Blackjack.Models
 {
     public class Card : BindableBase
     {
-        public Suits Suit { get; private set; }
+        private Suits suit;
+        public Suits Suit
+        {
+            get { return this.suit; }
+            private set
+            {
+                SetProperty(ref this.suit, value);
+                switch (this.suit)
+                {
+                    case Suits.Spades:
+                        SuitString = "Spades";
+                        break;
+                    case Suits.Diamonds:
+                        SuitString = "Diamonds";
+                        break;
+                    case Suits.Clubs:
+                        SuitString = "Clubs";
+                        break;
+                    case Suits.Hearts:
+                        SuitString = "Hearts";
+                        break;
+                }
+            }
+        }
+
+        private string suitString = string.Empty;
+        public string SuitString
+        {
+            get { return this.suitString; }
+            private set { SetProperty(ref this.suitString, value); }
+        }
 
         private int faceNumber;
         public int FaceNumber
@@ -13,39 +43,93 @@ namespace WPF_Blackjack.Models
             get { return this.faceNumber; }
             private set
             {
-                SetProperty(ref this.faceNumber, value);
-                if (this.faceNumber >= 2 && this.faceNumber <= 10)
+                if (value < 1 || value > 13)
                 {
-                    FaceLetter = Convert.ToString(this.faceNumber);
+                    throw new ArgumentOutOfRangeException("FaceNumber", value, "Face value must be within [1, 13].");
                 }
-                else
+
+                SetProperty(ref this.faceNumber, value);
+                switch (this.faceNumber)
                 {
-                    switch (this.faceNumber)
-                    {
-                        case 1:
-                            FaceLetter = "A";
-                            break;
-                        case 11:
-                            FaceLetter = "J";
-                            break;
-                        case 12:
-                            FaceLetter = "Q";
-                            break;
-                        case 13:
-                            FaceLetter = "K";
-                            break;
-                    }
+                    case 1:
+                        FaceLetter = "A";
+                        FaceString = "Ace";
+                        break;
+                    case 2:
+                        FaceLetter = Convert.ToString(this.faceNumber);
+                        FaceString = "Two";
+                        break;
+                    case 3:
+                        FaceLetter = Convert.ToString(this.faceNumber);
+                        FaceString = "Three";
+                        break;
+                    case 4:
+                        FaceLetter = Convert.ToString(this.faceNumber);
+                        FaceString = "Four";
+                        break;
+                    case 5:
+                        FaceLetter = Convert.ToString(this.faceNumber);
+                        FaceString = "Five";
+                        break;
+                    case 6:
+                        FaceLetter = Convert.ToString(this.faceNumber);
+                        FaceString = "Six";
+                        break;
+                    case 7:
+                        FaceLetter = Convert.ToString(this.faceNumber);
+                        FaceString = "Seven";
+                        break;
+                    case 8:
+                        FaceLetter = Convert.ToString(this.faceNumber);
+                        FaceString = "Eight";
+                        break;
+                    case 9:
+                        FaceLetter = Convert.ToString(this.faceNumber);
+                        FaceString = "Nine";
+                        break;
+                    case 10:
+                        FaceLetter = Convert.ToString(this.faceNumber);
+                        FaceString = "Ten";
+                        break;
+                    case 11:
+                        FaceLetter = "J";
+                        FaceString = "Jack";
+                        break;
+                    case 12:
+                        FaceLetter = "Q";
+                        FaceString = "Queen";
+                        break;
+                    case 13:
+                        FaceLetter = "K";
+                        FaceString = "King";
+                        break;
                 }
             }
         }
 
-        private string faceLetter;
-        public string FaceLetter { get; private set; }
+        private string faceLetter = string.Empty;
+        public string FaceLetter
+        {
+            get { return this.faceLetter; }
+            private set { SetProperty(ref this.faceLetter, value); }
+        }
+
+        private string faceString = string.Empty;
+        public string FaceString
+        {
+            get { return this.faceString; }
+            private set { SetProperty(ref this.faceString, value); }
+        }
 
         public Card(Suits suit, int faceNumber)
         {
             Suit = suit;
             FaceNumber = faceNumber;
+        }
+
+        public override string ToString()
+        {
+            return FaceString + " of " + SuitString;
         }
     }
 }
