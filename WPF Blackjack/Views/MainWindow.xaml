@@ -27,15 +27,23 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ContentControl Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ItemsControl ItemsSource="{Binding PlayerCards}" Background="Transparent" BorderThickness="0">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ContentControl>
+        <!-- Player cards -->
+        <ItemsControl Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding PlayerCards}" Background="Transparent" BorderThickness="0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        <!-- Dealer cards -->
+        <ItemsControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding DealerCards}" Background="Transparent" BorderThickness="0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
 
         <!-- Control buttons -->
         <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center">
