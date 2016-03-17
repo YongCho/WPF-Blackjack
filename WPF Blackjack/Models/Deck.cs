@@ -33,6 +33,11 @@ namespace WPF_Blackjack.Models
             Reset(numDecks);
         }
 
+        public void Reset()
+        {
+            Reset(DeckCount);
+        }
+
         public void Reset(int numDecks)
         {
             DeckCount = numDecks;
