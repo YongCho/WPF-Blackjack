@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WPF_Blackjack
+namespace BlackJack
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

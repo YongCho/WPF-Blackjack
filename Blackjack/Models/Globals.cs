@@ -1,4 +1,4 @@
-﻿namespace WPF_Blackjack.Models
+﻿namespace BlackJack.Models
 {
     public enum Suits { Spades, Hearts, Diamonds, Clubs }
 }

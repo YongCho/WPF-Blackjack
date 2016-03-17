@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_Blackjack.Views
+namespace BlackJack.Views
 {
     /// <summary>
     /// Interaction logic for BlackJackView.xaml

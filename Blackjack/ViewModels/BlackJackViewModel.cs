@@ -6,9 +6,9 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Windows.Input;
-using WPF_Blackjack.Models;
+using BlackJack.Models;
 
-namespace WPF_Blackjack.ViewModels
+namespace BlackJack.ViewModels
 {
     public class BlackJackViewModel : BindableBase
     {

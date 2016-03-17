@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WPF_Blackjack.Models
+namespace BlackJack.Models
 {
     public class Deck
     {

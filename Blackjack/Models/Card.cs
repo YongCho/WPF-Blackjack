@@ -1,7 +1,7 @@
 ﻿using Prism.Mvvm;
 using System;
 
-namespace WPF_Blackjack.Models
+namespace BlackJack.Models
 {
     public class Card : BindableBase
     {
