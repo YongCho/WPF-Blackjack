@@ -65,6 +65,11 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
+        <!-- Result (Win/Lose) -->
+        <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="{Binding ResultText}" FontSize="60" Foreground="Yellow" FontFamily="Verdana" FontWeight="Bold" />
+        </ContentControl>
+
         <!-- Control buttons -->
         <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center">
             <Button Style="{StaticResource ButtonStyle}" x:Name="DealButtonButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding DealCommand}">Deal</Button>

@@ -29,6 +29,13 @@ namespace WPF_Blackjack.ViewModels
             set { SetProperty(ref this.dealerHandValue, value); }
         }
 
+        private string resultText = string.Empty;
+        public string ResultText
+        {
+            get { return this.resultText; }
+            set { SetProperty(ref this.resultText, value); }
+        }
+
         public ICommand DealCommand { get; set; }
         public ICommand HitCommand { get; set; }
         public ICommand StandCommand { get; set; }
