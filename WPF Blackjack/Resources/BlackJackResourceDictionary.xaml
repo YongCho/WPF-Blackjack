@@ -27,7 +27,7 @@
                 <ControlTemplate TargetType="Button">
                     <Border Name="border" BorderThickness="0">
                         <Border.Background>
-                            <ImageBrush ImageSource="/Images/button.png" />
+                            <ImageBrush ImageSource="/Resources/Images/button.png" />
                         </Border.Background>
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
@@ -35,14 +35,14 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="/Images/button3.png" />
+                                    <ImageBrush ImageSource="/Resources/Images/button3.png" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="/Images/button2.png" />
+                                    <ImageBrush ImageSource="/Resources/Images/button2.png" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>

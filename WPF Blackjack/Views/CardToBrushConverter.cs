@@ -28,7 +28,7 @@ namespace WPF_Blackjack.Views
             else
                 imageSourceString = suitString + faceLetter;
 
-            imageSourceString = "pack://application:,,,/Images/Cards/" + imageSourceString + ".png";
+            imageSourceString = "pack://application:,,,/Resources/Images/Cards/" + imageSourceString + ".png";
 
             if (brushes.ContainsKey(imageSourceString) == false)
                 brushes.Add(imageSourceString, new ImageBrush(new BitmapImage(new Uri(imageSourceString))));
