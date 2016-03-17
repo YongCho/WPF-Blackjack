@@ -72,6 +72,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Card.cs" />
+    <Compile Include="Models\Deck.cs" />
     <Compile Include="Views\CardToBrushConverter.cs" />
     <Compile Include="Models\Globals.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

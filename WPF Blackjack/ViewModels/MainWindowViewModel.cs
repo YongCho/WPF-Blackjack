@@ -36,6 +36,8 @@ namespace WPF_Blackjack.ViewModels
 
         public MainWindowViewModel()
         {
+            Deck deck = new Deck(3);
+
             PlayerCards = new ObservableCollection<Card>();
             DealerCards = new ObservableCollection<Card>();
             PlayerCards.CollectionChanged += HandlePlayerHandChange;
