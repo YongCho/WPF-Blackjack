@@ -1,7 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -16,14 +15,14 @@ namespace BlackJack.ViewModels
         public ObservableCollection<Card> DealerCards { get; set; }
 
         private string playerHandValue = string.Empty;
-        public string PlayerHandValue
+        public string PlayerHandValueString
         {
             get { return this.playerHandValue; }
             set { SetProperty(ref this.playerHandValue, value); }
         }
 
         private string dealerHandValue = string.Empty;
-        public string DealerHandValue
+        public string DealerHandValueString
         {
             get { return this.dealerHandValue; }
             set { SetProperty(ref this.dealerHandValue, value); }
@@ -41,13 +40,10 @@ namespace BlackJack.ViewModels
         public ICommand StandCommand { get; set; }
         public ICommand SplitCommand { get; set; }
 
-        private Deck deck;
+        private BlackJackGame blackjack;
 
         public BlackJackViewModel()
         {
-            int numDecks = 3;
-            this.deck = new Deck(numDecks);
-
             PlayerCards = new ObservableCollection<Card>();
             DealerCards = new ObservableCollection<Card>();
             PlayerCards.CollectionChanged += HandlePlayerHandChange;
@@ -57,43 +53,42 @@ namespace BlackJack.ViewModels
             HitCommand = new DelegateCommand(DoHit);
             StandCommand = new DelegateCommand(DoStand);
             SplitCommand = new DelegateCommand(DoSplit);
+
+            this.blackjack = new BlackJackGame();
+            this.blackjack.DeckCount = 3;
         }
 
         private void HandlePlayerHandChange(object sender, NotifyCollectionChangedEventArgs e)
         {
-            PlayerHandValue = Convert.ToString(CalculateValue(PlayerCards));
+            Card[] playerCardsArray = new Card[PlayerCards.Count];
+            PlayerCards.CopyTo(playerCardsArray, 0);
+
+            int handValue = this.blackjack.CalculateValue(playerCardsArray);
+            PlayerHandValueString = Convert.ToString(handValue);
         }
 
         private void HandleDealerHandChange(object sender, NotifyCollectionChangedEventArgs e)
         {
-            DealerHandValue = Convert.ToString(CalculateValue(DealerCards));
-        }
+            Card[] dealerCardsArray = new Card[DealerCards.Count];
+            DealerCards.CopyTo(dealerCardsArray, 0);
 
-        private int CalculateValue(ObservableCollection<Card> hand)
-        {
-            int value = 0;
-
-            return value;
+            int handValue = this.blackjack.CalculateValue(dealerCardsArray);
+            DealerHandValueString = Convert.ToString(handValue);
         }
 
         private void DoDeal()
         {
-            if (this.deck.CardCount < 20)
-            {
-                this.deck.Reset();
-                this.deck.Shuffle();
-            }
-
             PlayerCards.Clear();
             DealerCards.Clear();
 
-            PlayerCards.Add(this.deck.DealCard());
-            Card c = this.deck.DealCard();
-            c.IsFaceDown = true;
-            DealerCards.Add(c);
+            PlayerCards.Add(this.blackjack.DealCard());
 
-            PlayerCards.Add(this.deck.DealCard());
-            DealerCards.Add(this.deck.DealCard());
+            Card faceDownCard = this.blackjack.DealCard();
+            faceDownCard.IsFaceDown = true;
+            DealerCards.Add(faceDownCard);
+
+            PlayerCards.Add(this.blackjack.DealCard());
+            DealerCards.Add(this.blackjack.DealCard());
         }
 
         private void DoHit()
