@@ -1,6 +1,5 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
-using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -42,8 +41,9 @@ namespace BlackJack.ViewModels
         public ICommand HitCommand { get; set; }
         public ICommand StandCommand { get; set; }
         public ICommand SplitCommand { get; set; }
+        public ICommand RestartCommand { get; set; }
 
-        enum State { ReadyDeal, PlayerTurn, AskingSplit, PlayingSplitted, DealerTurn, CheckingScore }
+        enum State { ReadyDeal, PlayerTurn, AskingSplit, PlayingSplitted, DealerTurn, CheckingWinner }
         enum Trigger { DealingDone, SameFace, Split, PlayerDone, DealerDone, Restart }
 
         State state = State.ReadyDeal;
@@ -62,6 +62,7 @@ namespace BlackJack.ViewModels
             HitCommand = new DelegateCommand(HitCommand_Execute, HitCommand_CanExecute);
             StandCommand = new DelegateCommand(StandCommand_Execute, StandCommand_CanExecute);
             SplitCommand = new DelegateCommand(SplitCommand_Execute, SplitCommand_CanExecute);
+            RestartCommand = new DelegateCommand(RestartCommand_Execute, RestartCommand_CanExecute);
 
             // Configure state machine.
             this.stateMachine = new StateMachine<State, Trigger>(() => this.state, s => this.state = s);
@@ -78,11 +79,11 @@ namespace BlackJack.ViewModels
             this.stateMachine.Configure(State.DealerTurn)
                 .OnEntry(RaiseCanExecuteChanged)
                 .OnEntry(PlayDealerAsync)
-                .Permit(Trigger.DealerDone, State.CheckingScore);
+                .Permit(Trigger.DealerDone, State.CheckingWinner);
 
-            this.stateMachine.Configure(State.CheckingScore)
+            this.stateMachine.Configure(State.CheckingWinner)
                 .OnEntry(RaiseCanExecuteChanged)
-                .OnEntry(CheckScores)
+                .OnEntry(CheckWinner)
                 .Permit(Trigger.Restart, State.ReadyDeal);
 
             this.blackjack = new BlackJackGame();
@@ -96,6 +97,8 @@ namespace BlackJack.ViewModels
 
             PlayerHandValue = 0;
             DealerHandValue = 0;
+
+            ResultText = string.Empty;
         }
 
         private void HandlePlayerHandChange(object sender, NotifyCollectionChangedEventArgs e)
@@ -137,9 +140,20 @@ namespace BlackJack.ViewModels
             this.stateMachine.Fire(Trigger.DealerDone);
         }
 
-        private void CheckScores()
+        private void CheckWinner()
         {
-            Trace.WriteLine("Checking Score");
+            if (PlayerHandValue > 21 || (DealerHandValue <= 21 && DealerHandValue > PlayerHandValue))
+            {
+                ResultText = "Dealer Wins!";
+            }
+            else if (PlayerHandValue == DealerHandValue)
+            {
+                ResultText = "Push";
+            }
+            else
+            {
+                ResultText = "Win!";
+            }
         }
 
         private void DealCommand_Execute()
@@ -195,12 +209,23 @@ namespace BlackJack.ViewModels
             return this.state == State.AskingSplit;
         }
 
+        private void RestartCommand_Execute()
+        {
+            this.stateMachine.Fire(Trigger.Restart);
+        }
+
+        private bool RestartCommand_CanExecute()
+        {
+            return this.state == State.CheckingWinner;
+        }
+
         private void RaiseCanExecuteChanged()
         {
             (DealCommand as DelegateCommand).RaiseCanExecuteChanged();
             (HitCommand as DelegateCommand).RaiseCanExecuteChanged();
             (StandCommand as DelegateCommand).RaiseCanExecuteChanged();
             (SplitCommand as DelegateCommand).RaiseCanExecuteChanged();
+            (RestartCommand as DelegateCommand).RaiseCanExecuteChanged();
         }
     }
 }
