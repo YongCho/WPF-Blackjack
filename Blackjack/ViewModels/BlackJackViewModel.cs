@@ -164,8 +164,7 @@ namespace BlackJack.ViewModels
         private void HitCommand_Execute()
         {
             PlayerCards.Add(this.blackjack.DealCard());
-            int handValue = this.blackjack.CalculateValue(PlayerCards.ToList());
-            if (handValue > 21)
+            if (PlayerHandValue >= 21)
             {
                 this.stateMachine.Fire(Trigger.PlayerDone);
             }
