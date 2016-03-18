@@ -88,7 +88,7 @@
     </Compile>
     <Compile Include="Views\CardToBrushConverter.cs" />
     <Compile Include="Models\Globals.cs" />
-    <Compile Include="Views\IntToStringConverter.cs" />
+    <Compile Include="Views\ZeroToEmptyStringConverter.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

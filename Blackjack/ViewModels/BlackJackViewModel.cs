@@ -58,10 +58,10 @@ namespace BlackJack.ViewModels
             PlayerCards.CollectionChanged += HandlePlayerHandChange;
             DealerCards.CollectionChanged += HandleDealerHandChange;
 
-            DealCommand = new DelegateCommand(DoDeal, CanDeal);
-            HitCommand = new DelegateCommand(DoHit, CanHit);
-            StandCommand = new DelegateCommand(DoStand, CanStand);
-            SplitCommand = new DelegateCommand(DoSplit, CanSplit);
+            DealCommand = new DelegateCommand(DealCommand_Execute, DealCommand_CanExecute);
+            HitCommand = new DelegateCommand(HitCommand_Execute, HitCommand_CanExecute);
+            StandCommand = new DelegateCommand(StandCommand_Execute, StandCommand_CanExecute);
+            SplitCommand = new DelegateCommand(SplitCommand_Execute, SplitCommand_CanExecute);
 
             // Configure state machine.
             this.stateMachine = new StateMachine<State, Trigger>(() => this.state, s => this.state = s);
@@ -142,7 +142,7 @@ namespace BlackJack.ViewModels
             Trace.WriteLine("Checking Score");
         }
 
-        private void DoDeal()
+        private void DealCommand_Execute()
         {
             PlayerCards.Add(this.blackjack.DealCard());
 
@@ -156,12 +156,12 @@ namespace BlackJack.ViewModels
             this.stateMachine.Fire(Trigger.DealingDone);
         }
 
-        private bool CanDeal()
+        private bool DealCommand_CanExecute()
         {
             return this.state == State.ReadyDeal;
         }
 
-        private void DoHit()
+        private void HitCommand_Execute()
         {
             PlayerCards.Add(this.blackjack.DealCard());
             int handValue = this.blackjack.CalculateValue(PlayerCards.ToList());
@@ -171,27 +171,27 @@ namespace BlackJack.ViewModels
             }
         }
 
-        private bool CanHit()
+        private bool HitCommand_CanExecute()
         {
             return this.state == State.PlayerTurn;
         }
 
-        private void DoStand()
+        private void StandCommand_Execute()
         {
             this.stateMachine.Fire(Trigger.PlayerDone);
         }
 
-        private bool CanStand()
+        private bool StandCommand_CanExecute()
         {
-            return CanHit();
+            return HitCommand_CanExecute();
         }
 
-        private void DoSplit()
+        private void SplitCommand_Execute()
         {
             Trace.WriteLine("Split");
         }
 
-        private bool CanSplit()
+        private bool SplitCommand_CanExecute()
         {
             return this.state == State.AskingSplit;
         }

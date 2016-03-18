@@ -5,7 +5,7 @@ using System.Windows.Data;
 namespace BlackJack.Views
 {
     // Converts 0 to an empty string.
-    public class IntToStringConverter : IValueConverter
+    public class ZeroToEmptyStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

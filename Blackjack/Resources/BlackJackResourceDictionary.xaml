@@ -5,7 +5,7 @@
 
     <!-- Converters -->
     <views:CardToBrushConverter x:Key="CardToBrushConverter" />
-    <views:IntToStringConverter x:Key="IntToStringConverter" />
+    <views:ZeroToEmptyStringConverter x:Key="ZeroToEmptyStringConverter" />
 
     <!-- Card object data template -->
     <DataTemplate DataType="{x:Type models:Card}">
