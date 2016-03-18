@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Windows.Input;
 using BlackJack.Models;
+using System.Linq;
 
 namespace BlackJack.ViewModels
 {
@@ -60,19 +61,13 @@ namespace BlackJack.ViewModels
 
         private void HandlePlayerHandChange(object sender, NotifyCollectionChangedEventArgs e)
         {
-            Card[] playerCardsArray = new Card[PlayerCards.Count];
-            PlayerCards.CopyTo(playerCardsArray, 0);
-
-            int handValue = this.blackjack.CalculateValue(playerCardsArray);
+            int handValue = this.blackjack.CalculateValue(PlayerCards.ToList());
             PlayerHandValueString = Convert.ToString(handValue);
         }
 
         private void HandleDealerHandChange(object sender, NotifyCollectionChangedEventArgs e)
         {
-            Card[] dealerCardsArray = new Card[DealerCards.Count];
-            DealerCards.CopyTo(dealerCardsArray, 0);
-
-            int handValue = this.blackjack.CalculateValue(dealerCardsArray);
+            int handValue = this.blackjack.CalculateValue(DealerCards.ToList());
             DealerHandValueString = Convert.ToString(handValue);
         }
 

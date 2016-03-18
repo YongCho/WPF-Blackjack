@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BlackJack.Models
 {
@@ -28,7 +29,7 @@ namespace BlackJack.Models
             this.deck.Shuffle();
         }
 
-        public int CalculateValue(Card[] hand)
+        public int CalculateValue(List<Card> hand)
         {
             int value = 0;
 
