@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Windows.Input;
 using BlackJack.Models;
 using System.Linq;
+using Stateless;
 
 namespace BlackJack.ViewModels
 {
@@ -41,6 +42,12 @@ namespace BlackJack.ViewModels
         public ICommand StandCommand { get; set; }
         public ICommand SplitCommand { get; set; }
 
+        enum State { ReadyDeal, PlayerTurn, AskingSplit, PlayingSplitted, DealerTurn, CheckingScore }
+        enum Trigger { DealingDone, SameFace, Split, PlayerDone, DealerDone, Restart }
+
+        State state = State.ReadyDeal;
+        StateMachine<State, Trigger> stateMachine;
+
         private BlackJackGame blackjack;
 
         public BlackJackViewModel()
@@ -55,8 +62,39 @@ namespace BlackJack.ViewModels
             StandCommand = new DelegateCommand(DoStand, CanStand);
             SplitCommand = new DelegateCommand(DoSplit, CanSplit);
 
+            // Configure state machine.
+            this.stateMachine = new StateMachine<State, Trigger>(() => this.state, s => this.state = s);
+
+            this.stateMachine.Configure(State.ReadyDeal)
+                .OnEntry(RaiseCanExecuteChanged)
+                .OnEntry(SetupTable)
+                .Permit(Trigger.DealingDone, State.PlayerTurn);
+
+            this.stateMachine.Configure(State.PlayerTurn)
+                .OnEntry(RaiseCanExecuteChanged)
+                .Permit(Trigger.PlayerDone, State.DealerTurn);
+
+            this.stateMachine.Configure(State.DealerTurn)
+                .OnEntry(RaiseCanExecuteChanged)
+                .OnEntry(PlayDealer)
+                .Permit(Trigger.DealerDone, State.CheckingScore);
+
+            this.stateMachine.Configure(State.CheckingScore)
+                .OnEntry(RaiseCanExecuteChanged)
+                .OnEntry(CheckScores)
+                .Permit(Trigger.Restart, State.ReadyDeal);
+
             this.blackjack = new BlackJackGame();
             this.blackjack.DeckCount = 3;
+        }
+
+        private void SetupTable()
+        {
+            PlayerCards.Clear();
+            DealerCards.Clear();
+
+            PlayerHandValueString = string.Empty;
+            DealerHandValueString = string.Empty;
         }
 
         private void HandlePlayerHandChange(object sender, NotifyCollectionChangedEventArgs e)
@@ -71,11 +109,20 @@ namespace BlackJack.ViewModels
             DealerHandValueString = Convert.ToString(handValue);
         }
 
+        private void PlayDealer()
+        {
+            Trace.WriteLine("Doing dealer stuff");
+
+            this.stateMachine.Fire(Trigger.DealerDone);
+        }
+
+        private void CheckScores()
+        {
+            Trace.WriteLine("Checking Score");
+        }
+
         private void DoDeal()
         {
-            PlayerCards.Clear();
-            DealerCards.Clear();
-
             PlayerCards.Add(this.blackjack.DealCard());
 
             Card faceDownCard = this.blackjack.DealCard();
@@ -84,26 +131,33 @@ namespace BlackJack.ViewModels
 
             PlayerCards.Add(this.blackjack.DealCard());
             DealerCards.Add(this.blackjack.DealCard());
+
+            this.stateMachine.Fire(Trigger.DealingDone);
         }
 
         private bool CanDeal()
         {
-            return true;
+            return this.state == State.ReadyDeal;
         }
 
         private void DoHit()
         {
             PlayerCards.Add(this.blackjack.DealCard());
+            int handValue = this.blackjack.CalculateValue(PlayerCards.ToList());
+            if (handValue > 21)
+            {
+                this.stateMachine.Fire(Trigger.PlayerDone);
+            }
         }
 
         private bool CanHit()
         {
-            return true;
+            return this.state == State.PlayerTurn;
         }
 
         private void DoStand()
         {
-            Trace.WriteLine("Stand");
+            this.stateMachine.Fire(Trigger.PlayerDone);
         }
 
         private bool CanStand()
@@ -118,7 +172,7 @@ namespace BlackJack.ViewModels
 
         private bool CanSplit()
         {
-            return false;
+            return this.state == State.AskingSplit;
         }
 
         private void RaiseCanExecuteChanged()
