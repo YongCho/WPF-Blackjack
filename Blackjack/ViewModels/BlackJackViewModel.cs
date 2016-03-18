@@ -17,18 +17,18 @@ namespace BlackJack.ViewModels
         public ObservableCollection<Card> PlayerCards { get; set; }
         public ObservableCollection<Card> DealerCards { get; set; }
 
-        private string playerHandValueString = string.Empty;
-        public string PlayerHandValueString
+        private int playerHandValue;
+        public int PlayerHandValue
         {
-            get { return this.playerHandValueString; }
-            set { SetProperty(ref this.playerHandValueString, value); }
+            get { return this.playerHandValue; }
+            set { SetProperty(ref this.playerHandValue, value); }
         }
 
-        private string dealerHandValueString = string.Empty;
-        public string DealerHandValueString
+        private int dealerHandValue;
+        public int DealerHandValue
         {
-            get { return this.dealerHandValueString; }
-            set { SetProperty(ref this.dealerHandValueString, value); }
+            get { return this.dealerHandValue; }
+            set { SetProperty(ref this.dealerHandValue, value); }
         }
 
         private string resultText = string.Empty;
@@ -94,20 +94,18 @@ namespace BlackJack.ViewModels
             PlayerCards.Clear();
             DealerCards.Clear();
 
-            PlayerHandValueString = string.Empty;
-            DealerHandValueString = string.Empty;
+            PlayerHandValue = 0;
+            DealerHandValue = 0;
         }
 
         private void HandlePlayerHandChange(object sender, NotifyCollectionChangedEventArgs e)
         {
-            int handValue = this.blackjack.CalculateValue(PlayerCards.ToList());
-            PlayerHandValueString = Convert.ToString(handValue);
+            PlayerHandValue = this.blackjack.CalculateValue(PlayerCards.ToList());
         }
 
         private void HandleDealerHandChange(object sender, NotifyCollectionChangedEventArgs e)
         {
-            int handValue = this.blackjack.CalculateValue(DealerCards.ToList());
-            DealerHandValueString = Convert.ToString(handValue);
+            DealerHandValue = this.blackjack.CalculateValue(DealerCards.ToList());
         }
 
         private async void PlayDealerAsync()
@@ -119,7 +117,7 @@ namespace BlackJack.ViewModels
                 card.IsFaceDown = false;
             }
 
-            while (Convert.ToInt32(dealerHandValueString) < 17)
+            while (DealerHandValue < 17)
             {
                 await Task.Delay(200);
                 DealerCards.Add(this.blackjack.DealCard());
