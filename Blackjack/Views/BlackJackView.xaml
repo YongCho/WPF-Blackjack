@@ -31,7 +31,7 @@
 
         <!-- Player hand value -->
         <ContentControl Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{Binding PlayerHandValue}" FontSize="50" Foreground="White" FontFamily="Verdana" FontWeight="Bold">
+            <TextBlock Text="{Binding PlayerHandValueString}" FontSize="50" Foreground="White" FontFamily="Verdana" FontWeight="Bold">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="3" BlurRadius="3" Color="Black" />
                 </TextBlock.Effect>
@@ -40,7 +40,7 @@
 
         <!-- Dealer hand value -->
         <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{Binding DealerHandValue}" FontSize="50" Foreground="White" FontFamily="Verdana" FontWeight="Bold">
+            <TextBlock Text="{Binding DealerHandValueString}" FontSize="50" Foreground="White" FontFamily="Verdana" FontWeight="Bold">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="3" BlurRadius="3" Color="Black" />
                 </TextBlock.Effect>
