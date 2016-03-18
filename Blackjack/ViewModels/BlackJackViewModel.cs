@@ -50,10 +50,10 @@ namespace BlackJack.ViewModels
             PlayerCards.CollectionChanged += HandlePlayerHandChange;
             DealerCards.CollectionChanged += HandleDealerHandChange;
 
-            DealCommand = new DelegateCommand(DoDeal);
-            HitCommand = new DelegateCommand(DoHit);
-            StandCommand = new DelegateCommand(DoStand);
-            SplitCommand = new DelegateCommand(DoSplit);
+            DealCommand = new DelegateCommand(DoDeal, CanDeal);
+            HitCommand = new DelegateCommand(DoHit, CanHit);
+            StandCommand = new DelegateCommand(DoStand, CanStand);
+            SplitCommand = new DelegateCommand(DoSplit, CanSplit);
 
             this.blackjack = new BlackJackGame();
             this.blackjack.DeckCount = 3;
@@ -86,9 +86,19 @@ namespace BlackJack.ViewModels
             DealerCards.Add(this.blackjack.DealCard());
         }
 
+        private bool CanDeal()
+        {
+            return true;
+        }
+
         private void DoHit()
         {
-            Trace.WriteLine("Hit");
+            PlayerCards.Add(this.blackjack.DealCard());
+        }
+
+        private bool CanHit()
+        {
+            return true;
         }
 
         private void DoStand()
@@ -96,9 +106,27 @@ namespace BlackJack.ViewModels
             Trace.WriteLine("Stand");
         }
 
+        private bool CanStand()
+        {
+            return CanHit();
+        }
+
         private void DoSplit()
         {
             Trace.WriteLine("Split");
+        }
+
+        private bool CanSplit()
+        {
+            return false;
+        }
+
+        private void RaiseCanExecuteChanged()
+        {
+            (DealCommand as DelegateCommand).RaiseCanExecuteChanged();
+            (HitCommand as DelegateCommand).RaiseCanExecuteChanged();
+            (StandCommand as DelegateCommand).RaiseCanExecuteChanged();
+            (SplitCommand as DelegateCommand).RaiseCanExecuteChanged();
         }
     }
 }

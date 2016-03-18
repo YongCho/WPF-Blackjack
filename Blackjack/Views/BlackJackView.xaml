@@ -74,8 +74,8 @@
         <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center">
             <Button Style="{StaticResource ButtonStyle}" x:Name="DealButtonButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding DealCommand}">Deal</Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="HitButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding HitCommand}">Hit</Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="StandButton" Margin="5, 0, 5, 20" Height="50" Width="50" Command="{Binding StandCommand}">Stand</Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="SplitButton" Margin="5, 0, 5, 20" Visibility="Collapsed" Height="30" Width="50" Command="{Binding SplitCommand}">Split</Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="StandButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding StandCommand}">Stand</Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="SplitButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding SplitCommand}">Split</Button>
         </WrapPanel>
     </Grid>
 </UserControl>
