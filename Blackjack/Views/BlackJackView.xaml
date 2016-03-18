@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:BlackJack.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+             d:DesignHeight="600" d:DesignWidth="800" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
     <UserControl.DataContext>
         <viewModels:BlackJackViewModel />
     </UserControl.DataContext>
@@ -25,8 +25,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <!-- Player hand value -->
@@ -66,16 +66,26 @@
         </ItemsControl>
 
         <!-- Result (Win/Lose) -->
-        <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
             <TextBlock Text="{Binding ResultText}" FontSize="60" Foreground="Yellow" FontFamily="Verdana" FontWeight="Bold" />
         </ContentControl>
 
         <!-- Control buttons -->
-        <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center" MinHeight="70">
-            <Button Style="{StaticResource ButtonStyle}" x:Name="DealButtonButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding DealCommand}">Deal</Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="HitButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding HitCommand}">Hit</Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="StandButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding StandCommand}">Stand</Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="SplitButton" Margin="5, 0, 0, 20" Height="50" Width="50" Command="{Binding SplitCommand}">Split</Button>
+        <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="DealButtonButton" Margin="5, 10" Height="80" Width="80" Command="{Binding DealCommand}">
+                <TextBlock Text="Deal" FontSize="20" FontFamily="Arial Black" />
+            </Button>
+        </WrapPanel>
+        <WrapPanel Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="HitButton" Margin="5, 10" Height="60" Width="60" Command="{Binding HitCommand}">
+                <TextBlock Text="Hit" FontFamily="Arial Black" />
+            </Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="StandButton" Margin="5, 10" Height="60" Width="60" Command="{Binding StandCommand}">
+                <TextBlock Text="Stand" FontFamily="Arial Black" />
+            </Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="SplitButton" Margin="5, 10" Height="60" Width="60" Command="{Binding SplitCommand}">
+                <TextBlock Text="Split" FontFamily="Arial Black" />
+            </Button>
         </WrapPanel>
     </Grid>
 </UserControl>

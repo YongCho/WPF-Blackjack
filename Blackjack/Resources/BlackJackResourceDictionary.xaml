@@ -9,7 +9,7 @@
 
     <!-- Card object data template -->
     <DataTemplate DataType="{x:Type models:Card}">
-        <Border Width="80" Height="120" BorderThickness="1" CornerRadius="6">
+        <Border Width="120" Height="160" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="-40, 0">
             <Border.Background>
                 <MultiBinding Converter="{StaticResource CardToBrushConverter}">
                     <Binding Path="SuitString" />
@@ -28,7 +28,7 @@
                 <ControlTemplate TargetType="Button">
                     <Border Name="border" BorderThickness="0">
                         <Border.Background>
-                            <ImageBrush ImageSource="/Resources/Images/button.png" />
+                            <ImageBrush ImageSource="/Resources/Images/button_normal.png" />
                         </Border.Background>
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
@@ -39,14 +39,14 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="/Resources/Images/button3.png" />
+                                    <ImageBrush ImageSource="/Resources/Images/button_hover.png" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="/Resources/Images/button2.png" />
+                                    <ImageBrush ImageSource="/Resources/Images/button_pressed.png" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>

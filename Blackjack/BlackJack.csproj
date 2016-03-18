@@ -181,11 +181,9 @@
     <Resource Include="Resources\Images\Cards\SpadesQ.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\button2.png" />
-    <Resource Include="Resources\Images\button3.png" />
+    <Resource Include="Resources\Images\button_hover.png" />
+    <Resource Include="Resources\Images\button_normal.png" />
+    <Resource Include="Resources\Images\button_pressed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
