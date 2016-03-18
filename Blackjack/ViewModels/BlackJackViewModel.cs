@@ -100,11 +100,17 @@ namespace BlackJack.ViewModels
 
         private void HandlePlayerHandChange(object sender, NotifyCollectionChangedEventArgs e)
         {
-            PlayerHandValue = this.blackjack.CalculateValue(PlayerCards.ToList());
+            RefreshScores();
         }
 
         private void HandleDealerHandChange(object sender, NotifyCollectionChangedEventArgs e)
         {
+            RefreshScores();
+        }
+
+        private void RefreshScores()
+        {
+            PlayerHandValue = this.blackjack.CalculateValue(PlayerCards.ToList());
             DealerHandValue = this.blackjack.CalculateValue(DealerCards.ToList());
         }
 
@@ -115,12 +121,17 @@ namespace BlackJack.ViewModels
             {
                 await Task.Delay(200);
                 card.IsFaceDown = false;
+                RefreshScores();
             }
 
-            while (DealerHandValue < 17)
+            // Dealer only proceeds if player is not already busted.
+            if (PlayerHandValue <= 21)
             {
-                await Task.Delay(200);
-                DealerCards.Add(this.blackjack.DealCard());
+                while (DealerHandValue < 17)
+                {
+                    await Task.Delay(200);
+                    DealerCards.Add(this.blackjack.DealCard());
+                }
             }
 
             this.stateMachine.Fire(Trigger.DealerDone);
