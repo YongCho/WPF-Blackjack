@@ -21,7 +21,7 @@
 
     <!-- Button style -->
     <Style x:Key="ButtonStyle" TargetType="Button">
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -32,6 +32,9 @@
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="border">
                                 <Setter.Value>
