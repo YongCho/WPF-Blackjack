@@ -8,6 +8,7 @@ using System.Windows.Input;
 using BlackJack.Models;
 using System.Linq;
 using Stateless;
+using System.Threading.Tasks;
 
 namespace BlackJack.ViewModels
 {
@@ -76,7 +77,7 @@ namespace BlackJack.ViewModels
 
             this.stateMachine.Configure(State.DealerTurn)
                 .OnEntry(RaiseCanExecuteChanged)
-                .OnEntry(PlayDealer)
+                .OnEntry(PlayDealerAsync)
                 .Permit(Trigger.DealerDone, State.CheckingScore);
 
             this.stateMachine.Configure(State.CheckingScore)
@@ -109,9 +110,20 @@ namespace BlackJack.ViewModels
             DealerHandValueString = Convert.ToString(handValue);
         }
 
-        private void PlayDealer()
+        private async void PlayDealerAsync()
         {
-            Trace.WriteLine("Doing dealer stuff");
+            // Turn over the face-down card.
+            foreach (Card card in DealerCards)
+            {
+                await Task.Delay(200);
+                card.IsFaceDown = false;
+            }
+
+            while (Convert.ToInt32(dealerHandValueString) < 17)
+            {
+                await Task.Delay(200);
+                DealerCards.Add(this.blackjack.DealCard());
+            }
 
             this.stateMachine.Fire(Trigger.DealerDone);
         }
