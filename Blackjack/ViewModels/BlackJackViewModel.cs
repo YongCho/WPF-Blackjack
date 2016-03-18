@@ -15,18 +15,18 @@ namespace BlackJack.ViewModels
         public ObservableCollection<Card> PlayerCards { get; set; }
         public ObservableCollection<Card> DealerCards { get; set; }
 
-        private string playerHandValue = string.Empty;
+        private string playerHandValueString = string.Empty;
         public string PlayerHandValueString
         {
-            get { return this.playerHandValue; }
-            set { SetProperty(ref this.playerHandValue, value); }
+            get { return this.playerHandValueString; }
+            set { SetProperty(ref this.playerHandValueString, value); }
         }
 
-        private string dealerHandValue = string.Empty;
+        private string dealerHandValueString = string.Empty;
         public string DealerHandValueString
         {
-            get { return this.dealerHandValue; }
-            set { SetProperty(ref this.dealerHandValue, value); }
+            get { return this.dealerHandValueString; }
+            set { SetProperty(ref this.dealerHandValueString, value); }
         }
 
         private string resultText = string.Empty;
