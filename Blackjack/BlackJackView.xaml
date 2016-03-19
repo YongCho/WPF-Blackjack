@@ -31,20 +31,12 @@
 
         <!-- Player hand value -->
         <ContentControl Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{Binding PlayerHandValue, Converter={StaticResource ZeroToEmptyStringConverter}}" FontSize="50" Foreground="White" FontFamily="Verdana" FontWeight="Bold">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="3" BlurRadius="3" Color="Black" />
-                </TextBlock.Effect>
-            </TextBlock>
+            <TextBlock Text="{Binding PlayerHandValue, Converter={StaticResource ZeroToEmptyStringConverter}, NotifyOnTargetUpdated=True}" Style="{StaticResource ScoreTextStyle}" />
         </ContentControl>
 
         <!-- Dealer hand value -->
         <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{Binding DealerHandValue, Converter={StaticResource ZeroToEmptyStringConverter}}" FontSize="50" Foreground="White" FontFamily="Verdana" FontWeight="Bold">
-                <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="3" BlurRadius="3" Color="Black" />
-                </TextBlock.Effect>
-            </TextBlock>
+            <TextBlock Text="{Binding DealerHandValue, Converter={StaticResource ZeroToEmptyStringConverter}, NotifyOnTargetUpdated=True}" Style="{StaticResource ScoreTextStyle}" />
         </ContentControl>
 
         <!-- Player cards -->
