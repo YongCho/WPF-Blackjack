@@ -1,22 +1,22 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
-using BlackJack.ViewModels;
+using Blackjack.ViewModels;
 
-namespace BlackJack.Views
+namespace Blackjack.Views
 {
     /// <summary>
-    /// Interaction logic for BlackJackView.xaml
+    /// Interaction logic for BlackjackView.xaml
     /// </summary>
-    public partial class BlackJackView : UserControl
+    public partial class BlackjackView : UserControl
     {
-        public BlackJackView()
+        public BlackjackView()
         {
             InitializeComponent();
         }
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            BlackJackViewModel viewModel = this.DataContext as BlackJackViewModel;
+            BlackjackViewModel viewModel = this.DataContext as BlackjackViewModel;
             if (viewModel.RestartCommand.CanExecute(null))
             {
                 viewModel.RestartCommand.Execute(null);

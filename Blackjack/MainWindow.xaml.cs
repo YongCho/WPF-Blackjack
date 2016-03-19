@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace BlackJack
+namespace Blackjack
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

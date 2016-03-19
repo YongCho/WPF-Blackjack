@@ -1,8 +1,8 @@
-﻿<Application x:Class="BlackJack.App"
+﻿<Application x:Class="Blackjack.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BlackJack"
-             StartupUri="Views/MainWindow.xaml">
+             xmlns:local="clr-namespace:Blackjack"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
 
     </Application.Resources>

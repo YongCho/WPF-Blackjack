@@ -7,8 +7,8 @@
     <ProjectGuid>{318927CE-C69E-4272-B009-10EB91F8DCCA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BlackJack</RootNamespace>
-    <AssemblyName>BlackJack</AssemblyName>
+    <RootNamespace>Blackjack</RootNamespace>
+    <AssemblyName>Blackjack</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -67,11 +67,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BlackJackView.xaml">
+    <Page Include="BlackJackView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -79,17 +79,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\BlackJackGame.cs" />
-    <Compile Include="Models\Card.cs" />
-    <Compile Include="Models\Deck.cs" />
-    <Compile Include="ViewModels\BlackJackViewModel.cs" />
-    <Compile Include="Views\BlackJackView.xaml.cs">
+    <Compile Include="BlackJackGame.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="Deck.cs" />
+    <Compile Include="BlackJackViewModel.cs" />
+    <Compile Include="BlackJackView.xaml.cs">
       <DependentUpon>BlackJackView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CardToBrushConverter.cs" />
-    <Compile Include="Models\Globals.cs" />
-    <Compile Include="Views\ZeroToEmptyStringConverter.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="CardToBrushConverter.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="ZeroToEmptyStringConverter.cs" />
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

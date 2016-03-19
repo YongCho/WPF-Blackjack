@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlackJack.Models
+namespace Blackjack.Models
 {
-    public class BlackJackGame
+    public class BlackjackGame
     {
         private static int defaultDeckCount = 1;
 
@@ -23,7 +23,7 @@ namespace BlackJack.Models
             }
         }
 
-        public BlackJackGame()
+        public BlackjackGame()
         {
             this.deck = new Deck(DeckCount);
             this.deck.Shuffle();

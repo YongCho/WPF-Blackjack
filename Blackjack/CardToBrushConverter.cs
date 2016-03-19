@@ -6,7 +6,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace BlackJack.Views
+namespace Blackjack.Views
 {
     public class CardToBrushConverter : IMultiValueConverter
     {

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace BlackJack.Views
+namespace Blackjack.Views
 {
     // Converts 0 to an empty string.
     public class ZeroToEmptyStringConverter : IValueConverter

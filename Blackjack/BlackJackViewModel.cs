@@ -4,14 +4,14 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Windows.Input;
-using BlackJack.Models;
+using Blackjack.Models;
 using System.Linq;
 using Stateless;
 using System.Threading.Tasks;
 
-namespace BlackJack.ViewModels
+namespace Blackjack.ViewModels
 {
-    public class BlackJackViewModel : BindableBase
+    public class BlackjackViewModel : BindableBase
     {
         public ObservableCollection<Card> PlayerCards { get; set; }
         public ObservableCollection<Card> DealerCards { get; set; }
@@ -51,9 +51,9 @@ namespace BlackJack.ViewModels
         State state = State.ReadyDeal;
         StateMachine<State, Trigger> stateMachine;
 
-        private BlackJackGame blackjack;
+        private BlackjackGame blackjack;
 
-        public BlackJackViewModel()
+        public BlackjackViewModel()
         {
             PlayerCards = new ObservableCollection<Card>();
             DealerCards = new ObservableCollection<Card>();
@@ -92,7 +92,7 @@ namespace BlackJack.ViewModels
                 .OnEntry(CheckWinner)
                 .Permit(Trigger.Restart, State.ReadyDeal);
 
-            this.blackjack = new BlackJackGame();
+            this.blackjack = new BlackjackGame();
             this.blackjack.DeckCount = 3;
         }
 

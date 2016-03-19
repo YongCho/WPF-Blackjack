@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlackJack.Models
+namespace Blackjack.Models
 {
     public class Deck
     {
