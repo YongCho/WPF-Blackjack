@@ -65,6 +65,30 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Style for result text -->
+    <Style x:Key="ResultTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="60" />
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="Blue" />
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="0" ScaleY="0" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" Duration="0:0:0.15" From="0" To="1" />
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" Duration="0:0:0.15" From="0" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- Button style -->
     <Style x:Key="ButtonStyle" TargetType="Button">
         <Setter Property="OverridesDefaultStyle" Value="True" />
