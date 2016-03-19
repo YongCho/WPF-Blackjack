@@ -37,6 +37,7 @@ namespace Blackjack.ViewModels
             set { SetProperty(ref this.resultText, value); }
         }
 
+        // Have some delay between events so things won't happen too fast for the user.
         private int actionDelayMillisec = Properties.Settings.Default.GlobalActionDelayMilliseconds;
 
         public ICommand DealCommand { get; set; }
@@ -125,7 +126,7 @@ namespace Blackjack.ViewModels
 
         private async void PlayDealer()
         {
-            // Turn over the face-down card.
+            // Show the face-down card.
             foreach (Card card in DealerCards)
             {
                 await Task.Delay(actionDelayMillisec);
@@ -184,6 +185,8 @@ namespace Blackjack.ViewModels
             await Task.Delay(actionDelayMillisec);
 
             this.stateMachine.Fire(Trigger.DealingDone);
+
+            // If player is dealt a Blackjack, skip their turn.
             if (PlayerHandValue == 21)
             {
                 this.stateMachine.Fire(Trigger.PlayerDone);
@@ -200,6 +203,7 @@ namespace Blackjack.ViewModels
             PlayerCards.Add(this.blackjack.DealCard());
             if (PlayerHandValue >= 21)
             {
+                // Player busted.
                 this.stateMachine.Fire(Trigger.PlayerDone);
             }
         }
@@ -221,6 +225,7 @@ namespace Blackjack.ViewModels
 
         private void SplitCommand_Execute()
         {
+            // Split is not implemented. This is just a placeholder.
             Trace.WriteLine("Split");
         }
 
