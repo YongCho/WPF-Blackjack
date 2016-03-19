@@ -84,7 +84,7 @@ namespace BlackJack.ViewModels
 
             this.stateMachine.Configure(State.DealerTurn)
                 .OnEntry(RaiseCanExecuteChanged)
-                .OnEntry(PlayDealerAsync)
+                .OnEntry(PlayDealer)
                 .Permit(Trigger.DealerDone, State.CheckingWinner);
 
             this.stateMachine.Configure(State.CheckingWinner)
@@ -123,7 +123,7 @@ namespace BlackJack.ViewModels
             DealerHandValue = this.blackjack.CalculateValue(DealerCards.ToList());
         }
 
-        private async void PlayDealerAsync()
+        private async void PlayDealer()
         {
             // Turn over the face-down card.
             foreach (Card card in DealerCards)
