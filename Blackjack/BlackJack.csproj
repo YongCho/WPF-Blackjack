@@ -67,7 +67,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BlackJackView.xaml">
+    <Page Include="BlackjackView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -79,12 +79,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BlackJackGame.cs" />
+    <Compile Include="BlackjackGame.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
-    <Compile Include="BlackJackViewModel.cs" />
-    <Compile Include="BlackJackView.xaml.cs">
-      <DependentUpon>BlackJackView.xaml</DependentUpon>
+    <Compile Include="BlackjackViewModel.cs" />
+    <Compile Include="BlackjackView.xaml.cs">
+      <DependentUpon>BlackjackView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CardToBrushConverter.cs" />
     <Compile Include="Globals.cs" />
