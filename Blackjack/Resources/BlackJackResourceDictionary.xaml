@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:properties="clr-namespace:BlackJack.Properties"
                     xmlns:views="clr-namespace:BlackJack.Views"
                     xmlns:models="clr-namespace:BlackJack.Models">
 
@@ -17,6 +18,19 @@
                     <Binding Path="IsFaceDown" />
                 </MultiBinding>
             </Border.Background>
+            <Border.RenderTransform>
+                <TranslateTransform X="0" Y="0" />
+            </Border.RenderTransform>
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" Duration="{Binding Source={x:Static properties:Settings.Default}, Path=AnimationDelayString}" From="-500" To="0" />
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" Duration="{Binding Source={x:Static properties:Settings.Default}, Path=AnimationDelayString}" From="100" To="0" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Border.Triggers>
         </Border>
     </DataTemplate>
 

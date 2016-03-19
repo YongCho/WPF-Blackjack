@@ -22,5 +22,41 @@ namespace BlackJack.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("400")]
+        public int GlobalActionDelayMilliseconds {
+            get {
+                return ((int)(this["GlobalActionDelayMilliseconds"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:0.4")]
+        public string GlobalActionDelayString {
+            get {
+                return ((string)(this["GlobalActionDelayString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public string AnimationDelayMilliseconds {
+            get {
+                return ((string)(this["AnimationDelayMilliseconds"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:0.2")]
+        public string AnimationDelayString {
+            get {
+                return ((string)(this["AnimationDelayString"]));
+            }
+        }
     }
 }

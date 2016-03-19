@@ -37,14 +37,16 @@ namespace BlackJack.ViewModels
             set { SetProperty(ref this.resultText, value); }
         }
 
+        private int actionDelayMillisec = Properties.Settings.Default.GlobalActionDelayMilliseconds;
+
         public ICommand DealCommand { get; set; }
         public ICommand HitCommand { get; set; }
         public ICommand StandCommand { get; set; }
         public ICommand SplitCommand { get; set; }
         public ICommand RestartCommand { get; set; }
 
-        enum State { ReadyDeal, PlayerTurn, AskingSplit, PlayingSplitted, DealerTurn, CheckingWinner }
-        enum Trigger { DealingDone, SameFace, Split, PlayerDone, DealerDone, Restart }
+        enum State { ReadyDeal, Dealing, PlayerTurn, AskingSplit, PlayingSplitted, DealerTurn, CheckingWinner }
+        enum Trigger { DealingStarted, DealingDone, SameFace, Split, PlayerDone, DealerDone, Restart }
 
         State state = State.ReadyDeal;
         StateMachine<State, Trigger> stateMachine;
@@ -70,6 +72,10 @@ namespace BlackJack.ViewModels
             this.stateMachine.Configure(State.ReadyDeal)
                 .OnEntry(RaiseCanExecuteChanged)
                 .OnEntry(SetupTable)
+                .Permit(Trigger.DealingStarted, State.Dealing);
+
+            this.stateMachine.Configure(State.Dealing)
+                .OnEntry(RaiseCanExecuteChanged)
                 .Permit(Trigger.DealingDone, State.PlayerTurn);
 
             this.stateMachine.Configure(State.PlayerTurn)
@@ -122,21 +128,24 @@ namespace BlackJack.ViewModels
             // Turn over the face-down card.
             foreach (Card card in DealerCards)
             {
-                await Task.Delay(200);
+                await Task.Delay(actionDelayMillisec);
                 card.IsFaceDown = false;
                 RefreshScores();
             }
+
+            await Task.Delay(actionDelayMillisec);
 
             // Dealer only proceeds if player is not already busted.
             if (PlayerHandValue <= 21)
             {
                 while (DealerHandValue < 17)
                 {
-                    await Task.Delay(200);
                     DealerCards.Add(this.blackjack.DealCard());
+                    await Task.Delay(actionDelayMillisec);
                 }
             }
 
+            await Task.Delay(actionDelayMillisec);
             this.stateMachine.Fire(Trigger.DealerDone);
         }
 
@@ -156,16 +165,23 @@ namespace BlackJack.ViewModels
             }
         }
 
-        private void DealCommand_Execute()
+        private async void DealCommand_Execute()
         {
+            this.stateMachine.Fire(Trigger.DealingStarted);
+
             PlayerCards.Add(this.blackjack.DealCard());
+            await Task.Delay(actionDelayMillisec);
+
+            DealerCards.Add(this.blackjack.DealCard());
+            await Task.Delay(actionDelayMillisec);
+
+            PlayerCards.Add(this.blackjack.DealCard());
+            await Task.Delay(actionDelayMillisec);
 
             Card faceDownCard = this.blackjack.DealCard();
             faceDownCard.IsFaceDown = true;
             DealerCards.Add(faceDownCard);
-
-            PlayerCards.Add(this.blackjack.DealCard());
-            DealerCards.Add(this.blackjack.DealCard());
+            await Task.Delay(actionDelayMillisec);
 
             this.stateMachine.Fire(Trigger.DealingDone);
         }
