@@ -184,6 +184,10 @@ namespace Blackjack.ViewModels
             await Task.Delay(actionDelayMillisec);
 
             this.stateMachine.Fire(Trigger.DealingDone);
+            if (PlayerHandValue == 21)
+            {
+                this.stateMachine.Fire(Trigger.PlayerDone);
+            }
         }
 
         private bool DealCommand_CanExecute()
